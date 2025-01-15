@@ -1,7 +1,7 @@
 # Simple DirectMedia Layer
 
 > [!NOTE]
-> CMake replaced with Zig Build System
+> CMake replaced with Zig Build System (just run `zig build`)
 
 Simple DirectMedia Layer (SDL for short) is a cross-platform library
 designed to make it easy to write multi-media software, such as games
