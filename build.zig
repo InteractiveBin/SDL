@@ -37,7 +37,7 @@ pub fn build(b: *std.Build) !void {
                 sdl_lib.linkSystemLibrary2(sys_lib, .{ .use_pkg_config = .yes });
             }
         },
-        .macos => unreachable,
+        .macos => {},
         .linux => {
             sdl_mod.addCSourceFiles(.{
                 .flags = &c_flags,
@@ -50,7 +50,7 @@ pub fn build(b: *std.Build) !void {
                 sdl_lib.linkSystemLibrary2(sys_lib, .{ .use_pkg_config = .force });
             }
         },
-        else => unreachable,
+        else => {},
     }
 
     sdl_lib.installHeadersDirectory(b.path("include/SDL3"), "SDL3", .{});
