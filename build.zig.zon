@@ -66,6 +66,7 @@
         "build.zig.zon",
         "src",
         "include",
+        "wayland-protocols",
         // For example...
         "LICENSE.txt",
         "README.md",
