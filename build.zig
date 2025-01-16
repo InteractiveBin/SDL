@@ -62,6 +62,7 @@ fn generateWaylandProtocols(b: *std.Build, artifact: *std.Build.Step.Compile) !v
     // wayland-scanner private-code {xml_file} {proto}-protocol.c
     const wayland_scanner = "wayland-scanner";
     const wayland_protocols_path = b.path("wayland-protocols");
+    std.log.debug("{s}", .{wayland_protocols_path.getPath(b)});
     const xml_dir = try std.fs.openDirAbsolute(wayland_protocols_path.getPath(b), .{ .iterate = true });
     var it = xml_dir.iterate();
     while (try it.next()) |entry| {
