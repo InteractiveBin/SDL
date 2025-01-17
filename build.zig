@@ -10,16 +10,14 @@ pub fn build(b: *std.Build) !void {
         .optimize = optimize,
         .link_libc = true,
     });
-    const sdl_mod = &sdl_lib.root_module;
+    const sdl_mod = sdl_lib.root_module;
     sdl_mod.addCMacro("DLL_EXPORT", "1");
-
-    const c_flags = .{"-std=c99"};
-    sdl_lib.linkLibC();
-
     sdl_mod.addIncludePath(b.path("include"));
     sdl_mod.addIncludePath(b.path("src"));
     sdl_mod.addConfigHeader(buildConfigH(b, target));
     sdl_mod.addSystemIncludePath(b.path("src/video/khronos"));
+    const c_flags = .{"-std=c99"};
+    sdl_mod.link_libc = true;
 
     sdl_mod.addCSourceFiles(.{
         .flags = &c_flags,
@@ -34,7 +32,7 @@ pub fn build(b: *std.Build) !void {
             });
 
             for (windows_deps) |sys_lib| {
-                sdl_lib.linkSystemLibrary2(sys_lib, .{ .use_pkg_config = .yes });
+                sdl_mod.linkSystemLibrary(sys_lib, .{});
             }
         },
         .macos => {},
@@ -47,7 +45,7 @@ pub fn build(b: *std.Build) !void {
             try generateWaylandProtocols(b, sdl_lib);
 
             for (linux_deps) |sys_lib| {
-                sdl_lib.linkSystemLibrary2(sys_lib, .{ .use_pkg_config = .force });
+                sdl_mod.linkSystemLibrary(sys_lib, .{ .use_pkg_config = .force });
             }
         },
         else => {},
