@@ -4,7 +4,7 @@ pub fn build(b: *std.Build) !void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
 
-    const sdl_lib = b.addSharedLibrary(.{
+    const sdl_lib = b.addStaticLibrary(.{
         .name = "SDL",
         .target = target,
         .optimize = optimize,
